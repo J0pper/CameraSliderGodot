@@ -1,0 +1,194 @@
+[gd_scene load_steps=13 format=3 uid="uid://dh041hxte8g5a"]
+
+[ext_resource type="Script" path="res://scripts/main.gd" id="1_mau7h"]
+[ext_resource type="Script" path="res://scripts/HSliderAngle.gd" id="1_t5eyg"]
+[ext_resource type="Script" path="res://scenes/HSliderLength.gd" id="2_i5kg3"]
+[ext_resource type="Script" path="res://scenes/FPSCounter.gd" id="2_lnyq8"]
+[ext_resource type="Script" path="res://scenes/CalculateCameraPath.gd" id="3_0oply"]
+[ext_resource type="Script" path="res://scripts/CameraArm.gd" id="3_7nk21"]
+[ext_resource type="Script" path="res://scenes/OptionButton.gd" id="3_cbiqn"]
+[ext_resource type="Script" path="res://scenes/PathPoints.gd" id="5_7yt7l"]
+[ext_resource type="Script" path="res://scenes/Camera.gd" id="6_rkb4g"]
+[ext_resource type="Script" path="res://scenes/Splines.gd" id="7_cec2h"]
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_bj4fs"]
+color = Color(0.772139, 0.446441, 0.323129, 1)
+thickness = 5
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_l10fu"]
+color = Color(0.772549, 0.447059, 0.321569, 1)
+thickness = 5
+
+[node name="MainScene" type="Node2D"]
+script = ExtResource("1_mau7h")
+
+[node name="Background" type="ColorRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 1280.0
+offset_bottom = 720.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.125911, 0.125911, 0.125911, 1)
+
+[node name="FPSCounter" type="Label" parent="."]
+offset_left = 11.0
+offset_top = 681.0
+offset_right = 51.0
+offset_bottom = 704.0
+script = ExtResource("2_lnyq8")
+
+[node name="Sliders" type="Node2D" parent="."]
+
+[node name="HSliderLength" type="HSlider" parent="Sliders"]
+offset_left = 77.0
+offset_top = 7.0
+offset_right = 601.0
+offset_bottom = 57.0
+tooltip_text = "Change the length of the main camera arm."
+theme_override_styles/slider = SubResource("StyleBoxLine_bj4fs")
+min_value = 100.0
+max_value = 300.0
+value = 300.0
+script = ExtResource("2_i5kg3")
+
+[node name="Title" type="RichTextLabel" parent="Sliders/HSliderLength"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -0.132
+anchor_top = 0.414
+anchor_right = -0.01
+anchor_bottom = 0.621
+offset_left = 0.167999
+offset_top = 0.0399933
+offset_right = 0.24
+offset_bottom = 0.0599899
+text = "Length:"
+fit_content = true
+
+[node name="Value" type="RichTextLabel" parent="Sliders/HSliderLength"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -0.132
+anchor_top = 0.414
+anchor_right = -0.01
+anchor_bottom = 0.621
+offset_left = 609.168
+offset_top = -7.7
+offset_right = 609.24
+offset_bottom = 4.95
+fit_content = true
+
+[node name="HSliderAngle" type="HSlider" parent="Sliders"]
+offset_left = 74.0
+offset_top = 53.0
+offset_right = 598.0
+offset_bottom = 111.0
+tooltip_text = "Change the angle of the main camera arm."
+theme_override_styles/slider = SubResource("StyleBoxLine_l10fu")
+max_value = 360.0
+script = ExtResource("1_t5eyg")
+
+[node name="Title" type="RichTextLabel" parent="Sliders/HSliderAngle"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -0.132
+anchor_top = 0.414
+anchor_right = -0.01
+anchor_bottom = 0.621
+offset_left = 4.168
+offset_top = -4.012
+offset_right = -4.76
+offset_bottom = 18.982
+text = "Angle:"
+fit_content = true
+
+[node name="Value" type="RichTextLabel" parent="Sliders/HSliderAngle"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -0.132
+anchor_top = 0.414
+anchor_right = -0.01
+anchor_bottom = 0.621
+offset_left = 612.168
+offset_top = -9.012
+offset_right = 612.24
+offset_bottom = 3.638
+fit_content = true
+
+[node name="UIButtons" type="Node2D" parent="."]
+
+[node name="AddSubjectPoint" type="Button" parent="UIButtons"]
+offset_left = 854.0
+offset_top = 22.0
+offset_right = 1005.0
+offset_bottom = 53.0
+tooltip_text = "Add a point which the camera will follow, while the arm is moving."
+text = "Add tracking subject"
+
+[node name="AddTrackPoint" type="Button" parent="UIButtons"]
+offset_left = 676.0
+offset_top = 23.0
+offset_right = 827.0
+offset_bottom = 54.0
+tooltip_text = "Add a point that will be used in the camera path."
+text = "Add tracking point"
+
+[node name="CalculateCameraPath" type="Button" parent="UIButtons"]
+offset_left = 1044.0
+offset_top = 69.0
+offset_right = 1226.0
+offset_bottom = 100.0
+tooltip_text = "Calculate the path that the "
+text = "Calculate camera path"
+script = ExtResource("3_0oply")
+
+[node name="OptionButton" type="OptionButton" parent="UIButtons"]
+offset_left = 1042.0
+offset_top = 22.0
+offset_right = 1266.0
+offset_bottom = 56.0
+item_count = 1
+selected = 0
+popup/item_0/text = "Choose spline type"
+popup/item_0/id = 0
+popup/item_0/separator = true
+script = ExtResource("3_cbiqn")
+
+[node name="CameraArm" type="Node2D" parent="."]
+script = ExtResource("3_7nk21")
+
+[node name="Camera" type="ColorRect" parent="CameraArm"]
+layout_direction = 1
+offset_right = 20.0
+offset_bottom = 40.0
+size_flags_horizontal = 4
+size_flags_vertical = 4
+script = ExtResource("6_rkb4g")
+
+[node name="PathPoints" type="Node2D" parent="CameraArm"]
+script = ExtResource("5_7yt7l")
+
+[node name="Splines" type="Node2D" parent="CameraArm"]
+script = ExtResource("7_cec2h")
+
+[node name="VContainerPointInfo" type="VBoxContainer" parent="."]
+offset_left = 992.0
+offset_top = 122.0
+offset_right = 1258.0
+offset_bottom = 374.0
+
+[connection signal="cameraArmLength" from="Sliders/HSliderLength" to="CameraArm" method="_on_h_slider_length_camera_arm_length"]
+[connection signal="cameraArmAngle" from="Sliders/HSliderAngle" to="CameraArm" method="_on_h_slider_angle_camera_arm_angle"]
+[connection signal="pressed" from="UIButtons/AddSubjectPoint" to="CameraArm" method="_on_add_subject_point_pressed"]
+[connection signal="pressed" from="UIButtons/AddTrackPoint" to="CameraArm" method="_on_add_track_point_pressed"]
+[connection signal="pressed" from="UIButtons/CalculateCameraPath" to="UIButtons/OptionButton" method="_on_calculate_camera_path_pressed"]
+[connection signal="pressed" from="UIButtons/CalculateCameraPath" to="CameraArm/PathPoints" method="_on_calculate_camera_path_pressed"]
+[connection signal="item_selected" from="UIButtons/OptionButton" to="UIButtons/OptionButton" method="_on_item_selected"]
+[connection signal="createdPathPoint" from="CameraArm" to="CameraArm/PathPoints" method="_on_camera_arm_created_path_point"]
+[connection signal="createdSubjectPoint" from="CameraArm" to="CameraArm/PathPoints" method="_on_camera_arm_created_subject_point"]
+[connection signal="endEffectorPosistion" from="CameraArm" to="CameraArm/Camera" method="_on_camera_arm_end_effector_posistion"]
+[connection signal="sendPathPoints" from="CameraArm/PathPoints" to="CameraArm/Splines" method="_on_path_points_send_path_points"]
+[connection signal="emitSplineTypes" from="CameraArm/Splines" to="UIButtons/OptionButton" method="_on_splines_emit_spline_types"]
+[connection signal="requestSplinePoints" from="CameraArm/Splines" to="CameraArm/PathPoints" method="_on_splines_request_spline_points"]
