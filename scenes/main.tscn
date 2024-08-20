@@ -2,14 +2,13 @@
 
 [ext_resource type="Script" path="res://scripts/main.gd" id="1_mau7h"]
 [ext_resource type="Script" path="res://scripts/HSliderAngle.gd" id="1_t5eyg"]
-[ext_resource type="Script" path="res://scenes/HSliderLength.gd" id="2_i5kg3"]
-[ext_resource type="Script" path="res://scenes/FPSCounter.gd" id="2_lnyq8"]
-[ext_resource type="Script" path="res://scenes/CalculateCameraPath.gd" id="3_0oply"]
+[ext_resource type="Script" path="res://scripts/HSliderLength.gd" id="2_i5kg3"]
+[ext_resource type="Script" path="res://scripts/FPSCounter.gd" id="2_lnyq8"]
 [ext_resource type="Script" path="res://scripts/CameraArm.gd" id="3_7nk21"]
-[ext_resource type="Script" path="res://scenes/OptionButton.gd" id="3_cbiqn"]
-[ext_resource type="Script" path="res://scenes/PathPoints.gd" id="5_7yt7l"]
-[ext_resource type="Script" path="res://scenes/Camera.gd" id="6_rkb4g"]
-[ext_resource type="Script" path="res://scenes/Splines.gd" id="7_cec2h"]
+[ext_resource type="Script" path="res://scripts/OptionButton.gd" id="3_cbiqn"]
+[ext_resource type="Script" path="res://scripts/PathPoints.gd" id="5_7yt7l"]
+[ext_resource type="Script" path="res://scripts/Camera.gd" id="6_rkb4g"]
+[ext_resource type="Script" path="res://scripts/Splines.gd" id="7_cec2h"]
 
 [sub_resource type="StyleBoxLine" id="StyleBoxLine_bj4fs"]
 color = Color(0.772139, 0.446441, 0.323129, 1)
@@ -18,6 +17,20 @@ thickness = 5
 [sub_resource type="StyleBoxLine" id="StyleBoxLine_l10fu"]
 color = Color(0.772549, 0.447059, 0.321569, 1)
 thickness = 5
+
+[sub_resource type="GDScript" id="GDScript_fbk0w"]
+script/source = "extends Button
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta):
+	pass
+"
 
 [node name="MainScene" type="Node2D"]
 script = ExtResource("1_mau7h")
@@ -141,8 +154,9 @@ offset_top = 69.0
 offset_right = 1226.0
 offset_bottom = 100.0
 tooltip_text = "Calculate the path that the "
+disabled = true
 text = "Calculate camera path"
-script = ExtResource("3_0oply")
+script = SubResource("GDScript_fbk0w")
 
 [node name="OptionButton" type="OptionButton" parent="UIButtons"]
 offset_left = 1042.0
@@ -186,6 +200,7 @@ offset_bottom = 374.0
 [connection signal="pressed" from="UIButtons/CalculateCameraPath" to="UIButtons/OptionButton" method="_on_calculate_camera_path_pressed"]
 [connection signal="pressed" from="UIButtons/CalculateCameraPath" to="CameraArm/PathPoints" method="_on_calculate_camera_path_pressed"]
 [connection signal="item_selected" from="UIButtons/OptionButton" to="UIButtons/OptionButton" method="_on_item_selected"]
+[connection signal="selectedSplineType" from="UIButtons/OptionButton" to="CameraArm/Splines" method="_on_option_button_selected_spline_type"]
 [connection signal="createdPathPoint" from="CameraArm" to="CameraArm/PathPoints" method="_on_camera_arm_created_path_point"]
 [connection signal="createdSubjectPoint" from="CameraArm" to="CameraArm/PathPoints" method="_on_camera_arm_created_subject_point"]
 [connection signal="endEffectorPosistion" from="CameraArm" to="CameraArm/Camera" method="_on_camera_arm_end_effector_posistion"]
