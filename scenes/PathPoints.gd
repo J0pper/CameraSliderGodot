@@ -39,7 +39,9 @@ func _process(_delta):
 			pathPointUpdate = true
 	
 	if pathPointUpdate:
+		emit_signal("sendPathPoints", pathPoints)
 		queue_redraw()
+		pathPointUpdate = false
 
 
 func _draw():
@@ -76,7 +78,3 @@ func _on_camera_arm_created_path_point(arg: Vector2):
 
 func _on_camera_arm_created_subject_point(arg):
 	subjectPoints.append(arg)
-
-
-func _on_calculate_camera_path_pressed():
-	emit_signal("sendPathPoints", pathPoints)

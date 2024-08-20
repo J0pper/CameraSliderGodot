@@ -191,4 +191,3 @@ offset_bottom = 374.0
 [connection signal="endEffectorPosistion" from="CameraArm" to="CameraArm/Camera" method="_on_camera_arm_end_effector_posistion"]
 [connection signal="sendPathPoints" from="CameraArm/PathPoints" to="CameraArm/Splines" method="_on_path_points_send_path_points"]
 [connection signal="emitSplineTypes" from="CameraArm/Splines" to="UIButtons/OptionButton" method="_on_splines_emit_spline_types"]
-[connection signal="requestSplinePoints" from="CameraArm/Splines" to="CameraArm/PathPoints" method="_on_splines_request_spline_points"]

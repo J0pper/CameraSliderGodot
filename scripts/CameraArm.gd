@@ -12,7 +12,6 @@ func _process(delta):
 	if cameraArmPolar != cameraArmPolarReference:
 		queue_redraw()
 		cameraArmPolarReference = cameraArmPolar
-		emit_signal("endEffectorPosistion", cameraArmPolar)
 
 
 func _draw():
