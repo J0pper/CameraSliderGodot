@@ -7,6 +7,7 @@
 [ext_resource type="Script" path="res://scripts/CameraArm.gd" id="3_7nk21"]
 [ext_resource type="Script" path="res://scripts/OptionButton.gd" id="3_cbiqn"]
 [ext_resource type="Script" path="res://scripts/PathPoints.gd" id="5_7yt7l"]
+[ext_resource type="Script" path="res://scripts/calculateCameraPath.gd" id="5_mepbq"]
 [ext_resource type="Script" path="res://scripts/Camera.gd" id="6_rkb4g"]
 [ext_resource type="Script" path="res://scripts/Splines.gd" id="7_cec2h"]
 
@@ -17,20 +18,6 @@ thickness = 5
 [sub_resource type="StyleBoxLine" id="StyleBoxLine_l10fu"]
 color = Color(0.772549, 0.447059, 0.321569, 1)
 thickness = 5
-
-[sub_resource type="GDScript" id="GDScript_fbk0w"]
-script/source = "extends Button
-
-
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	pass # Replace with function body.
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass
-"
 
 [node name="MainScene" type="Node2D"]
 script = ExtResource("1_mau7h")
@@ -156,17 +143,16 @@ offset_bottom = 100.0
 tooltip_text = "Calculate the path that the "
 disabled = true
 text = "Calculate camera path"
-script = SubResource("GDScript_fbk0w")
+script = ExtResource("5_mepbq")
 
 [node name="OptionButton" type="OptionButton" parent="UIButtons"]
 offset_left = 1042.0
 offset_top = 22.0
 offset_right = 1266.0
 offset_bottom = 56.0
-item_count = 1
 selected = 0
+item_count = 1
 popup/item_0/text = "Choose spline type"
-popup/item_0/id = 0
 popup/item_0/separator = true
 script = ExtResource("3_cbiqn")
 
@@ -174,6 +160,7 @@ script = ExtResource("3_cbiqn")
 script = ExtResource("3_7nk21")
 
 [node name="Camera" type="ColorRect" parent="CameraArm"]
+visible = false
 layout_direction = 1
 offset_right = 20.0
 offset_bottom = 40.0
@@ -199,6 +186,7 @@ offset_bottom = 374.0
 [connection signal="pressed" from="UIButtons/AddTrackPoint" to="CameraArm" method="_on_add_track_point_pressed"]
 [connection signal="pressed" from="UIButtons/CalculateCameraPath" to="UIButtons/OptionButton" method="_on_calculate_camera_path_pressed"]
 [connection signal="pressed" from="UIButtons/CalculateCameraPath" to="CameraArm/PathPoints" method="_on_calculate_camera_path_pressed"]
+[connection signal="item_selected" from="UIButtons/OptionButton" to="UIButtons/CalculateCameraPath" method="_on_option_button_item_selected"]
 [connection signal="item_selected" from="UIButtons/OptionButton" to="UIButtons/OptionButton" method="_on_item_selected"]
 [connection signal="selectedSplineType" from="UIButtons/OptionButton" to="CameraArm/Splines" method="_on_option_button_selected_spline_type"]
 [connection signal="createdPathPoint" from="CameraArm" to="CameraArm/PathPoints" method="_on_camera_arm_created_path_point"]
